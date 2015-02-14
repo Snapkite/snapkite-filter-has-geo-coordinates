@@ -1,3 +1,5 @@
+var CONFIG = require('./config.json');
+
 function isValid(tweet) {
   // This filter doesn't block anything
   if (CONFIG.content.with && CONFIG.content.without) {
