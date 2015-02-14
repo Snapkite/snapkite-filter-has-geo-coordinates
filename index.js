@@ -1,10 +1,10 @@
 function isValid(tweet) {
-  // This filter has no power
+  // This filter doesn't block anything
   if (CONFIG.content.with && CONFIG.content.without) {
     return true;
   }
 
-  // This filter blocks everything
+  // This filter blocks all tweets
   if (!CONFIG.content.with && !CONFIG.content.without) {
     return false;
   }
@@ -18,18 +18,23 @@ function isValid(tweet) {
       && tweet.geo.coordinates[1]
     ) {
       return true;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   // Show only without this content
   if (!CONFIG.content.with && CONFIG.content.without) {
-    if (!tweet.geo) {
+    if (
+      tweet.geo
+      && tweet.geo.coordinates
+      && tweet.geo.coordinates[0]
+      && tweet.geo.coordinates[1]
+    ) {
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   }
 }
 
